@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
-public class Player extends Thread {
+public class Player extends Thread   {
     private int playerNumber;
     private Board board;
     private int[][] boardArray;
@@ -59,7 +59,14 @@ public class Player extends Thread {
                     }
 
                     while (row == -1 || col > 3) {
-                        System.out.println("Invalid move, try again: ");
+                        // System.out.println("Invalid move, try again: ");
+                        try {
+                            invalidMove();
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                            e.printStackTrace();
+                        }
+                        
                         col = scan.nextInt();
 
                         if (col <= 3) {
@@ -109,7 +116,14 @@ public class Player extends Thread {
                     }
 
                     while (row == -1 || col > 3) {
-                        System.out.println("Invalid move, try again: ");
+                        // System.out.println("Invalid move, try again: ");
+
+                        try {
+                            invalidMove();
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                            e.printStackTrace();
+                        }
                         col = scan.nextInt();
 
                         if (col <= 3) {
@@ -138,5 +152,9 @@ public class Player extends Thread {
 
         }
 
+    }
+
+    static void invalidMove()  throws InvalidException {
+        throw new InvalidException("Invalid move, try again: ");
     }
 }
